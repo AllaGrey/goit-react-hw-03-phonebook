@@ -30,11 +30,18 @@ export class App extends Component {
   }
 
   addNewContact = newContact => {
+    const { contacts } = this.state;
     const newContactNormalize = newContact.name.toLowerCase();
-    const savedContactsNormalise = this.state.contacts.map(contact =>
-      contact.name.toLowerCase()
+
+    // const isDublicate = this.state.contacts.map(contact =>
+    //   contact.name.toLowerCase()
+    // );
+
+    const isDublicate = contacts.find(
+      ({ name }) => name.toLocaleLowerCase() === newContactNormalize
     );
-    savedContactsNormalise.includes(newContactNormalize)
+
+    isDublicate
       ? alert(`${newContact.name} is already in contacts.`)
       : this.setState(prevState => {
           return {
